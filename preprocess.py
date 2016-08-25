@@ -251,7 +251,7 @@ def add_images(data, h5_file, args):
 
       lock.acquire()
       if i % 1000 == 0:
-        print 'Writing image %d / %d' % (i, len(data))
+        print('Writing image %d / %d' % (i, len(data)))
       original_heights[i] = H0
       original_widths[i] = W0
       image_heights[i] = H
@@ -326,8 +326,8 @@ def split_filter_captions(data, max_token_length, tokens_type, verbose=True):
         img_removed += 1
 
     if regions_per_image == 0:
-      print 'kept %d, removed %d' % (img_kept, img_removed)
-      assert False, 'DANGER, some image has no valid regions. Not super sure this doesnt cause bugs. Think about more if it comes up'
+      print('kept %d, removed %d' % (img_kept, img_removed))
+      assert(False, 'DANGER, some image has no valid regions. Not super sure this doesnt cause bugs. Think about more if it comes up')
 
   if verbose:
     print 'Keeping %d captions' % captions_kept
@@ -368,7 +368,7 @@ def main(args):
     split_data = json.load(f)
 
   # Only keep images that are in a split
-  print 'There are %d images total' % len(data)
+  print('There are %d images total' % len(data))
   data = filter_images(data, split_data)
   print 'After filtering for splits there are %d images' % len(data)
 
