@@ -301,7 +301,7 @@ def split_filter_captions(data, max_token_length, tokens_type, verbose=True):
   captions_removed = 0
   for i, img in enumerate(data):
     if verbose and (i + 1) % 2000 == 0:
-      print 'Splitting tokens in image %d / %d' % (i + 1, len(data))
+      print('Splitting tokens in image %d / %d' % (i + 1, len(data)))
     regions_per_image = 0
     img_kept, img_removed = 0, 0
     for region in img['regions']:
