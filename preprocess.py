@@ -174,7 +174,7 @@ def encode_boxes(data, original_heights, original_widths, image_size):
       assert box[3]>=0
       all_boxes.append(box)
 
-  print 'number of bad x,y,w,h: ', xwasbad, ywasbad, wwasbad, hwasbad
+  print('number of bad x,y,w,h: ', xwasbad, ywasbad, wwasbad, hwasbad)
   return np.vstack(all_boxes)
 
 def build_img_idx_to_box_idxs(data):
@@ -327,7 +327,7 @@ def split_filter_captions(data, max_token_length, tokens_type, verbose=True):
 
     if regions_per_image == 0:
       print('kept %d, removed %d' % (img_kept, img_removed))
-      assert(False, 'DANGER, some image has no valid regions. Not super sure this doesnt cause bugs. Think about more if it comes up')
+      assert False, 'DANGER, some image has no valid regions. Not super sure this doesnt cause bugs. Think about more if it comes up'
 
   if verbose:
     print 'Keeping %d captions' % captions_kept
