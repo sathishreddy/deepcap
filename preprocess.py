@@ -2,7 +2,7 @@
 
 import argparse, os, json, string
 from collections import Counter
-from Queue import Queue
+from queue import Queue
 from threading import Thread, Lock
 
 from math import floor
@@ -84,7 +84,7 @@ def build_vocab(data, min_token_instances, verbose=True):
       if region['tokens'] is not None:
         token_counter.update(region['tokens'])
   vocab = set()
-  for token, count in token_counter.iteritems():
+  for token, count in token_counter.items():
     if count >= min_token_instances:
       vocab.add(token)
 
@@ -261,7 +261,7 @@ def add_images(data, h5_file, args):
       q.task_done()
 
   print('adding images to hdf5.... (this might take a while)')
-  for i in xrange(args.num_workers):
+  for i in range(args.num_workers):
     t = Thread(target=worker)
     t.daemon = True
     t.start()
@@ -286,9 +286,9 @@ def words_preprocess(phrase):
     u'è': u'e',
     u'…': u'',
   }
-  for k, v in replacements.iteritems():
+  for k, v in replacements.items():
     phrase = phrase.replace(k, v)
-  return str(phrase).lower().translate(None, string.punctuation).split()
+  return str(phrase).lower().translate(str.maketrans('', '', string.punctuation)).split()
 
 def split_filter_captions(data, max_token_length, tokens_type, verbose=True):
   """
@@ -330,15 +330,15 @@ def split_filter_captions(data, max_token_length, tokens_type, verbose=True):
       assert False, 'DANGER, some image has no valid regions. Not super sure this doesnt cause bugs. Think about more if it comes up'
 
   if verbose:
-    print 'Keeping %d captions' % captions_kept
-    print 'Skipped %d captions for being too long' % captions_removed
+    print('Keeping %d captions' % captions_kept)
+    print('Skipped %d captions for being too long' % captions_removed)
 
 def encode_splits(data, split_data):
   """ Encode splits as intetgers and return the array. """
   lookup = {'train': 0, 'val': 1, 'test': 2}
   id_to_split = {}
   split_array = np.zeros(len(data))
-  for split, idxs in split_data.iteritems():
+  for split, idxs in split_data.items():
     for idx in idxs:
       id_to_split[idx] = split
   for i, img in enumerate(data):
@@ -349,7 +349,7 @@ def encode_splits(data, split_data):
 def filter_images(data, split_data):
   """ Keep only images that are in some split and have some captions """
   all_split_ids = set()
-  for split_name, ids in split_data.iteritems():
+  for split_name, ids in split_data.items():
     all_split_ids.update(ids)
   new_data = []
   for img in data:
@@ -370,7 +370,7 @@ def main(args):
   # Only keep images that are in a split
   print('There are %d images total' % len(data))
   data = filter_images(data, split_data)
-  print 'After filtering for splits there are %d images' % len(data)
+  print('After filtering for splits there are %d images' % len(data))
 
   if args.max_images > 0:
     data = data[:args.max_images]
